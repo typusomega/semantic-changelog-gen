@@ -23,7 +23,6 @@ func (it *MarkdownFormatter) Format(chlog *changelog.Changelog) (string, error) 
 		it.writeSection(featuresHeading, release.Features)
 		it.writeSection(fixesHeading, release.Fixes)
 		it.writeSection(breakingHeading, release.BreakingChanges)
-		it.linefeed()
 	}
 	return it.txt.String(), nil
 }
@@ -34,6 +33,7 @@ func (it *MarkdownFormatter) writeSection(heading string, commits []*changelog.S
 	}
 
 	it.txt.WriteString(heading)
+	it.linefeed()
 	for _, commit := range commits {
 		it.txt.WriteString(listEntryPrefix)
 		it.txt.WriteString(commit.Description)

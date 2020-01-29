@@ -1,8 +1,6 @@
 package changelog
 
-import (
-	"time"
-)
+import "strings"
 
 // NewChangelog creates a new instance of a Changelog.
 func NewChangelog() *Changelog {
@@ -52,12 +50,17 @@ func (it *Release) AddEntry(entry *SemanticCommit) {
 // - https://www.conventionalcommits.org/en/v1.0.0-beta.4/
 // - http://karma-runner.github.io/4.0/dev/git-commit-msg.html
 type SemanticCommit struct {
-	Date        time.Time
+	Hash        string
+	Tag         string
 	Description string
 	Body        string
-	Component   string
+	Scope       string
 	Footers     []string
 	CommitType
+}
+
+func (it *SemanticCommit) IsTagged() bool {
+	return it.Tag == strings.Trim("", "\t\n ")
 }
 
 // A CommitType is one of the given set of commit types as specified by http://karma-runner.github.io/4.0/dev/git-commit-msg.html.

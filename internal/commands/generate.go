@@ -6,9 +6,9 @@ import (
 
 	"github.com/jessevdk/go-flags"
 
-	"github.com/typusomega/semantic-changelog-gen/pkg/builder"
+	bldr "github.com/typusomega/semantic-changelog-gen/pkg/builder"
 	"github.com/typusomega/semantic-changelog-gen/pkg/formatter"
-	"github.com/typusomega/semantic-changelog-gen/pkg/parser"
+	"github.com/typusomega/semantic-changelog-gen/pkg/git"
 )
 
 // NewGenerateCommand creates a new instance of a generateCommand
@@ -19,13 +19,11 @@ func NewGenerateCommand(opts *Opts) flags.Commander {
 // Execute runs the command
 func (it *generateCommand) Execute(args []string) error {
 	println(fmt.Sprintf("generating changelog for git repository '%s'...", it.opts.GitRepository))
-	bldr := builder.New(builder.Options{
-		Repository: it.opts.GitRepository,
-		Parser:     parser.New(),
-	})
+
+	builder := bldr.New(git.NewRepository(it.opts.GitRepository, git.NewParser()))
 
 	println("building...")
-	changelog, err := bldr.Build()
+	changelog, err := builder.Build()
 	if err != nil {
 		return err
 	}
