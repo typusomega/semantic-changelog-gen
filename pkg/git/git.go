@@ -8,7 +8,6 @@ import (
 
 type Repository interface {
 	GetLog() ([]*changelog.SemanticCommit, error)
-	GetTags() (map[string]string, error)
 }
 
 func NewRepository(directory string, parser Parser) Repository {
@@ -21,25 +20,6 @@ func NewRepository(directory string, parser Parser) Repository {
 type repository struct {
 	directory string
 	parser    Parser
-}
-
-func (it *repository) GetTags() (map[string]string, error) {
-	cmd := exec.Command("git", "show-ref", "--tags", "-d")
-	cmd.Dir = it.directory
-
-	out, err := cmd.StdoutPipe()
-	if err != nil {
-		return make(map[string]string), nil
-	}
-
-	err = cmd.Start()
-	if err != nil {
-		return make(map[string]string), nil
-	}
-
-	tags := it.parser.ParseTags(out)
-
-	return tags, cmd.Wait()
 }
 
 func (it *repository) GetLog() ([]*changelog.SemanticCommit, error) {
