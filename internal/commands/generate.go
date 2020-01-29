@@ -3,6 +3,7 @@ package commands
 import (
 	fmt "fmt"
 	"io/ioutil"
+	"path/filepath"
 
 	"github.com/jessevdk/go-flags"
 
@@ -18,9 +19,13 @@ func NewGenerateCommand(opts *Opts) flags.Commander {
 
 // Execute runs the command
 func (it *generateCommand) Execute(args []string) error {
-	println(fmt.Sprintf("generating changelog for git repository '%s'...", it.opts.GitRepository))
+	repositoryAbsoultePath, err := filepath.Abs(it.opts.GitRepository)
+	if err != nil {
+		return err
+	}
 
-	builder := bldr.New(git.NewRepository(it.opts.GitRepository, git.NewParser()))
+	println(fmt.Sprintf("generating changelog for git repository '%s'...", repositoryAbsoultePath))
+	builder := bldr.New(git.NewRepository(repositoryAbsoultePath, git.NewParser()))
 
 	println("building...")
 	changelog, err := builder.Build()
@@ -35,8 +40,13 @@ func (it *generateCommand) Execute(args []string) error {
 		return err
 	}
 
-	println(fmt.Sprintf("writing changelog to '%s'...", it.opts.OutputFile))
-	err = ioutil.WriteFile(it.opts.OutputFile, []byte(formattedChangelog), 0644)
+	outfileAbsoultePath, err := filepath.Abs(it.opts.OutputFile)
+	if err != nil {
+		return err
+	}
+
+	println(fmt.Sprintf("writing changelog to '%s'...", outfileAbsoultePath))
+	err = ioutil.WriteFile(outfileAbsoultePath, []byte(formattedChangelog), 0644)
 	if err != nil {
 		return err
 	}
