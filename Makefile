@@ -38,7 +38,7 @@ fmt:
 
 mocks:
 		$(Q)go get github.com/golang/mock/gomock
-		$(Q)go install github.com/golang/mock/mockgen
+		$(Q)command -v mockgen || GO111MODULE=off go get github.com/golang/mock/mockgen
 		$(Q)go generate ./...
 
 build:

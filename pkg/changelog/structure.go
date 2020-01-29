@@ -59,6 +59,10 @@ type SemanticCommit struct {
 	CommitType
 }
 
+func NewSemanticCommit() *SemanticCommit {
+	return &SemanticCommit{Footers: make([]string, 0)}
+}
+
 func (it *SemanticCommit) IsTagged() bool {
 	return it.Tag == strings.Trim("", "\t\n ")
 }

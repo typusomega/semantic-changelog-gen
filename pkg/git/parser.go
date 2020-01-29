@@ -37,7 +37,7 @@ func (it *parser) ParseTags(reader io.Reader) map[string]string {
 
 func (it *parser) ParseLog(reader io.Reader) ([]*changelog.SemanticCommit, error) {
 	var commits []*changelog.SemanticCommit
-	commit := &changelog.SemanticCommit{}
+	commit := changelog.NewSemanticCommit()
 
 	scanner := bufio.NewScanner(reader)
 	for scanner.Scan() {
@@ -48,7 +48,7 @@ func (it *parser) ParseLog(reader io.Reader) ([]*changelog.SemanticCommit, error
 		}
 
 		if strings.HasPrefix(line, "commit") {
-			commit = &changelog.SemanticCommit{}
+			commit = changelog.NewSemanticCommit()
 			commit.Hash, commit.Tag = it.parseHashAndTag(line)
 			commits = append(commits, commit)
 			continue
