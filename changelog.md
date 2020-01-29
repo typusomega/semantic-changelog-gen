@@ -1,6 +1,7 @@
 ## tbd
 ### Features
 
+- Print absolute paths
 - Add semantic changelog generation in markdown format
 
 ### Breaking
