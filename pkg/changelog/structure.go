@@ -66,6 +66,7 @@ func (it *SemanticCommit) IsTagged() bool {
 // A CommitType is one of the given set of commit types as specified by http://karma-runner.github.io/4.0/dev/git-commit-msg.html.
 type CommitType string
 
+// The diverse semantic commit types stated in http://karma-runner.github.io/4.0/dev/git-commit-msg.html.
 const (
 	Feature  CommitType = "feat"
 	Fix      CommitType = "fix"

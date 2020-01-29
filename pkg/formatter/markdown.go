@@ -46,6 +46,7 @@ func (it *MarkdownFormatter) linefeed() {
 	it.txt.WriteString("\n")
 }
 
+// A MarkdownFormatter is a Formatter rendering markdown
 type MarkdownFormatter struct {
 	txt strings.Builder
 }
