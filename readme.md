@@ -10,7 +10,7 @@ This generator sticks to the rules defined in [Karma Git Commit Msg](http://karm
 If you have [Go](https://golang.org/) installed, it's as simple as running:
 
 ```bash
-go get github.com/typusomega/semantic-changelog-gen/cmd/semantic-changelog-gen
+go get github.com/typusomega/semantic-changelog-gen
 ```
 
 ## Usage

@@ -43,7 +43,7 @@ mocks:
 		$(Q)go generate ./...
 
 changelog:
-		$(Q)GO111MODULE=off go get -u github.com/typusomega/semantic-changelog-gen/cmd/semantic-changelog-gen
+		$(Q)GO111MODULE=off go get -u github.com/typusomega/semantic-changelog-gen
 		$(Q)echo "generating changelog...."
 		$(Q)semantic-changelog-gen generate
 
