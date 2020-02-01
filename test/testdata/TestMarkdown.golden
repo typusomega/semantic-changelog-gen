@@ -1,5 +1,6 @@
 # Changelog
 ## tbd
+## v0.3.1
 ### Fixes
 - Adjust `commitHash` regex to parse reference tuples correctly
 - Negate `SemanticCommit.IsTagged()`

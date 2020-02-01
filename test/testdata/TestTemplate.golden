@@ -1,5 +1,6 @@
 
 tbd
+v0.3.1
 v0.3.0
     Commit: 1b775e3e7bae08ae2136c6358761aa91c1e6a3f4
     Description: Store `SemanticCommit`s flattened in Release
