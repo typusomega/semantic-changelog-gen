@@ -6,10 +6,12 @@ import (
 	"github.com/typusomega/semantic-changelog-gen/pkg/changelog"
 )
 
+// A Repository represents a Git repository containing semantic commits.
 type Repository interface {
 	GetLog() ([]*changelog.SemanticCommit, error)
 }
 
+// NewRepository creates a new instace of a Repository
 func NewRepository(directory string, parser Parser) Repository {
 	return &repository{
 		directory: directory,

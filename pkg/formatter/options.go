@@ -6,7 +6,7 @@ import (
 	"github.com/joomcode/errorx"
 )
 
-// A FormatterOption sets options such as format type and given.
+// A Option sets options such as format type and given.
 type Option func(formatter *Options)
 
 // WithFormat sets the `Format` to be used for formatting.
@@ -28,9 +28,9 @@ func WithTemplate(goTemplate string) Option {
 type Format string
 
 const (
-	// MarkdownFormat
+	// MarkdownFormat is markdown format
 	MarkdownFormat Format = "markdown"
-	// CustomFormat
+	// CustomFormat is a custom format
 	CustomFormat Format = "custom"
 )
 

@@ -59,10 +59,12 @@ type SemanticCommit struct {
 	CommitType
 }
 
+// NewSemanticCommit creates a new instace of a SemanticCommit.
 func NewSemanticCommit() *SemanticCommit {
 	return &SemanticCommit{Footers: make([]string, 0)}
 }
 
+// IsTagged tells whether the commit is tagged or not.
 func (it *SemanticCommit) IsTagged() bool {
 	return it.Tag == strings.Trim("", "\t\n ")
 }
