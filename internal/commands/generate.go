@@ -4,6 +4,7 @@ import (
 	fmt "fmt"
 	"io/ioutil"
 	"path/filepath"
+	"strings"
 
 	"github.com/jessevdk/go-flags"
 
@@ -34,7 +35,20 @@ func (it *generateCommand) Execute(args []string) error {
 	}
 
 	println("formatting...")
-	fmter := formatter.NewMarkdownFormatter()
+
+	formatterOpts := []formatter.Option{formatter.WithFormat(it.opts.OutputFormat)}
+	if strings.Trim(it.opts.OutputTemplateFile, " \n\t\r") != "" {
+		templateFileContent, err := ioutil.ReadFile(it.opts.OutputTemplateFile)
+		if err != nil {
+			return err
+		}
+		formatterOpts = append(formatterOpts, formatter.WithTemplate(string(templateFileContent)))
+	}
+	fmter, err := formatter.NewTemplateFormatter(formatterOpts...)
+	if err != nil {
+		return err
+	}
+
 	formattedChangelog, err := fmter.Format(changelog)
 	if err != nil {
 		return err

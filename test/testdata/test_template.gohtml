@@ -1,0 +1,12 @@
+{{- range $release := .Releases }}
+{{ $release.Version }}
+{{- if .BreakingChanges }}
+  {{- range $commit := .BreakingChanges }}
+    Commit: {{ $commit.Hash }}
+    Description: {{ $commit.Description }}
+    {{- if $commit.Body }}
+    Body: {{ $commit.Body }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+{{- end }}

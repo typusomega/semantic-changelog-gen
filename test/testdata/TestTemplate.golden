@@ -1,0 +1,5 @@
+
+tbd
+    Commit: 492dac3e12fedada7e79a10aeb258576b6a73ae4
+    Description: Parse `git log` instead of using go-git
+    Body:     - `git log --decorate` does exactly what is necessary to match commits and their tags

@@ -1,6 +1,7 @@
 package test
 
 import (
+	"io/ioutil"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -11,14 +12,35 @@ import (
 	"github.com/typusomega/semantic-changelog-gen/pkg/git"
 )
 
-func TestChangelogGenerator(t *testing.T) {
+func TestMarkdown(t *testing.T) {
 	builder := bldr.New(git.NewRepository("../", git.NewParser()))
 
 	changelog, err := builder.Build()
-	assert.Nil(t, err)
+	assert.NoError(t, err)
 
-	formattedChangelog, err := formatter.NewMarkdownFormatter().Format(changelog)
-	assert.Nil(t, err)
+	fmt, err := formatter.NewTemplateFormatter(formatter.WithFormat(formatter.MarkdownFormat))
+	assert.NoError(t, err)
+
+	formattedChangelog, err := fmt.Format(changelog)
+	assert.NoError(t, err)
+
+	golden.Assert(t, []byte(formattedChangelog))
+}
+
+func TestTemplate(t *testing.T) {
+	builder := bldr.New(git.NewRepository("../", git.NewParser()))
+
+	changelog, err := builder.Build()
+	assert.NoError(t, err)
+
+	file, err := ioutil.ReadFile("testdata/test_template.gohtml")
+	assert.NoError(t, err)
+
+	fmt, err := formatter.NewTemplateFormatter(formatter.WithFormat(formatter.CustomFormat), formatter.WithTemplate(string(file)))
+	assert.NoError(t, err)
+
+	formattedChangelog, err := fmt.Format(changelog)
+	assert.NoError(t, err)
 
 	golden.Assert(t, []byte(formattedChangelog))
 }
