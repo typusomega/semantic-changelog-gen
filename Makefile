@@ -19,11 +19,12 @@ lint:
 		$(Q)golangci-lint run -E gofmt -E golint -E goconst -E gocritic -E golint -E gosec -E maligned -E nakedret -E prealloc -E unconvert -E gocyclo -E scopelint -E goimports
 		$(Q)echo linting OK
 
-test:
+tests:
 		$(Q)echo "unit testing...."
 		$(Q)go test ./pkg/...
+		$(Q)go test ./test
 
-verify: lint test
+verify: lint tests
 
 prepare: fmt verify
 		$(Q)go mod tidy
