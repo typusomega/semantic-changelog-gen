@@ -26,7 +26,9 @@ const markdownTemplate = `# Changelog
 ### Features
     {{- end }}
     {{- range $scope, $commits := $scopedFeatures }}
+		{{- if $scope }}
 #### {{ $scope }}
+		{{- end }}
       {{- range $commit := $commits }}
 - {{ $commit.Description }}
       {{- end }}
@@ -37,7 +39,9 @@ const markdownTemplate = `# Changelog
 ### Fixes
     {{- end }}
     {{- range $scope, $commits := $scopedFixes }}
+		{{- if $scope }}
 #### {{ $scope }}
+		{{- end }}
       {{- range $commit := $commits }}
 - {{ $commit.Description }}
       {{- end }}
@@ -48,7 +52,9 @@ const markdownTemplate = `# Changelog
 ### Breaking
     {{- end }}
     {{- range $scope, $commits := $scopedBreaking }}
+		{{- if $scope }}
 #### {{ $scope }}
+		{{- end }}
       {{- range $commit := $commits }}
 - {{ $commit.Description }}
       {{- end }}
