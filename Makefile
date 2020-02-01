@@ -47,5 +47,8 @@ changelog:
 		$(Q)echo "generating changelog...."
 		$(Q)semantic-changelog-gen generate
 
+update-golden:
+		$(Q)go test ./test -update
+
 build:
 		$(Q)$(GOARGS) go build -gcflags "all=-trimpath=${GOPATH}" -asmflags "all=-trimpath=${GOPATH}" -o ./artifacts/semantic-changelog-gen ./cmd/semantic-changelog-gen/main.go
