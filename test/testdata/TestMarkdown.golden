@@ -1,6 +1,7 @@
 # Changelog
 ## tbd
 ### Features
+- Use Go templates for formatting
 - Print absolute paths
 - Add semantic changelog generation in markdown format
 ### Breaking
