@@ -3,7 +3,6 @@ module github.com/typusomega/semantic-changelog-gen
 go 1.13
 
 require (
-	github.com/go-errors/errors v1.0.1 // indirect
 	github.com/golang/mock v1.4.0
 	github.com/jessevdk/go-flags v1.4.0
 	github.com/joomcode/errorx v1.0.0

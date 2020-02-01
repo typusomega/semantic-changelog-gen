@@ -26,7 +26,7 @@ tests:
 
 verify: lint tests
 
-prepare: fmt verify
+prepare: fmt verify changelog
 		$(Q)go mod tidy
 
 clean:
@@ -41,6 +41,11 @@ mocks:
 		$(Q)go get github.com/golang/mock/gomock
 		$(Q)command -v mockgen || GO111MODULE=off go get github.com/golang/mock/mockgen
 		$(Q)go generate ./...
+
+changelog:
+		$(Q)GO111MODULE=off go get -u github.com/typusomega/semantic-changelog-gen/cmd/semantic-changelog-gen
+		$(Q)echo "generating changelog...."
+		$(Q)semantic-changelog-gen generate
 
 build:
 		$(Q)$(GOARGS) go build -gcflags "all=-trimpath=${GOPATH}" -asmflags "all=-trimpath=${GOPATH}" -o ./artifacts/semantic-changelog-gen ./cmd/semantic-changelog-gen/main.go
