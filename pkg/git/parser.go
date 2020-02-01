@@ -126,4 +126,4 @@ func isEmpty(str string) bool {
 }
 
 var commitTitle = regexp.MustCompile(`(?P<type>feat|fix|chore|docs|test|refactor|style)(\((?P<scope>[^\)]*)\))?:\W?(?P<description>.*)`)
-var commitHash = regexp.MustCompile(`commit\W?(?P<hash>[a-f0-9]+)(\W\(tag:\W?(?P<tag>[^)]*)\))?`)
+var commitHash = regexp.MustCompile(`commit\W?(?P<hash>[a-f0-9]+)(\W\(.*tag:\W?(?P<tag>[^),]*).*\))?`)
