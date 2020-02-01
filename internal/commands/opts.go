@@ -27,6 +27,7 @@ type OutputOptions struct {
 	IncludeScopes bool `long:"include-scopes" description:"Tells whether or not to include scopes in Markdown format"`
 }
 
+// GetFormatter creates an instance of a Formatter based on this options.
 func (it *OutputOptions) GetFormatter() (formatter.Formatter, error) {
 	switch it.OutputFormat {
 	case "markdown":
