@@ -1,3 +1,4 @@
+// Package git contains the features used from Git
 package git
 
 import (

@@ -1,3 +1,4 @@
+// Package formatter contains everything related to changelog Formatters.
 package formatter
 
 import (

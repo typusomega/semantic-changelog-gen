@@ -1,3 +1,4 @@
+// Package builder contains the builder extracting a git repository's log into a Changelog
 package builder
 
 import (
