@@ -1,5 +1,9 @@
 # Changelog
 ## tbd
+## v0.2.0
+### Breaking
+- Move main.go to repository root
+## v0.1.0
 ### Features
 - Expand absolute file path of template
 - Use Go templates for formatting
