@@ -3,6 +3,9 @@
 
 # Semantic Changelog Gen
 
+A lightweight and extensible changelog generator working with semantic commits.
+This generator sticks to the rules defined in [Karma Git Commit Msg](http://karma-runner.github.io/4.0/dev/git-commit-msg.html).
+
 ## How to install
 If you have [Go](https://golang.org/) installed, it's as simple as running:
 
