@@ -1,5 +1,9 @@
 
 tbd
+v0.3.0
+    Commit: 1b775e3e7bae08ae2136c6358761aa91c1e6a3f4
+    Description: Store `SemanticCommit`s flattened in Release
+    Body:     - Release offers new methods to retrieve commits by type
 v0.2.0
     Commit: cbd3c2a1dab94892fc75b72d236b19b334b24ba2
     Description: Move main.go to repository root

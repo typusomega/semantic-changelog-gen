@@ -1,5 +1,11 @@
 # Changelog
 ## tbd
+### Fixes
+- Adjust `commitHash` regex to parse reference tuples correctly
+- Negate `SemanticCommit.IsTagged()`
+## v0.3.0
+### Breaking
+- Store `SemanticCommit`s flattened in Release
 ## v0.2.0
 ### Breaking
 - Move main.go to repository root
