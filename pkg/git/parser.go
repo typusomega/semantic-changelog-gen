@@ -12,7 +12,6 @@ import (
 // Parser is meant to parse semantic commit messages into `changelog.SemanticCommit` objects.
 type Parser interface {
 	ParseLog(reader io.Reader) ([]*changelog.SemanticCommit, error)
-	ParseTags(reader io.Reader) map[string]string
 }
 
 // NewParser creates a new instance of a Parser
@@ -21,18 +20,6 @@ func NewParser() Parser {
 }
 
 type parser struct {
-}
-
-func (it *parser) ParseTags(reader io.Reader) map[string]string {
-	tags := make(map[string]string)
-
-	scanner := bufio.NewScanner(reader)
-	for scanner.Scan() {
-		commit, tag := it.parseTag(scanner.Text())
-		tags[commit] = tag
-	}
-
-	return tags
 }
 
 func (it *parser) ParseLog(reader io.Reader) ([]*changelog.SemanticCommit, error) {
