@@ -107,7 +107,7 @@ func NewSemanticCommit() *SemanticCommit {
 
 // IsTagged tells whether the commit is tagged or not.
 func (it *SemanticCommit) IsTagged() bool {
-	return it.Tag == strings.Trim("", "\t\n ")
+	return it.Tag != strings.Trim("", "\t\n ")
 }
 
 // A CommitType is one of the given set of commit types as specified by http://karma-runner.github.io/4.0/dev/git-commit-msg.html.

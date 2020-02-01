@@ -29,7 +29,7 @@ func (it *builder) Build() (*changelog.Changelog, error) {
 
 	release := chlog.NewRelease("tbd")
 	for _, commit := range log {
-		if !commit.IsTagged() {
+		if commit.IsTagged() {
 			release = chlog.NewRelease(commit.Tag)
 		}
 
