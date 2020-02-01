@@ -1,6 +1,9 @@
 # Changelog
 
 ## tbd
+## v0.4.0
+### Breaking
+- Add `IncluceScopes` option for markdown formatting
 ## v0.3.1
 ### Fixes
 - Adjust `commitHash` regex to parse reference tuples correctly

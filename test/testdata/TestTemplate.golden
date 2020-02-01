@@ -1,5 +1,9 @@
 
 tbd
+v0.4.0
+    Commit: c248dcdd73cab924f0c9d945f209ea22b91958b3
+    Description: Add `IncluceScopes` option for markdown formatting
+    Body:     - extract `CustomTemplateFormatter` and `MarkdownFormatter`    -
 v0.3.1
 v0.3.0
     Commit: 1b775e3e7bae08ae2136c6358761aa91c1e6a3f4
