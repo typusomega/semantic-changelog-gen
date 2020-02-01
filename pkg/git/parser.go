@@ -120,27 +120,6 @@ func (it *parser) parseTitle(line string) (tp changelog.CommitType, desc string,
 	return
 }
 
-func (it *parser) parseTag(line string) (string, string) {
-	commit := ""
-	tag := ""
-	match := tagTarget.FindStringSubmatch(line)
-	if len(match) == 0 {
-		return commit, tag
-	}
-
-	for i, name := range tagTarget.SubexpNames() {
-		if i < len(match) {
-			switch name {
-			case "commit":
-				commit = match[i]
-			case "tag":
-				tag = match[i]
-			}
-		}
-	}
-	return commit, tag
-}
-
 func isEmpty(str string) bool {
 	str = strings.TrimSpace(str)
 	return str == ""
@@ -148,4 +127,3 @@ func isEmpty(str string) bool {
 
 var commitTitle = regexp.MustCompile(`(?P<type>feat|fix|chore|docs|test|refactor|style)(\((?P<scope>[^\)]*)\))?:\W?(?P<description>.*)`)
 var commitHash = regexp.MustCompile(`commit\W?(?P<hash>[a-f0-9]+)(\W\(tag:\W?(?P<tag>[^)]*)\))?`)
-var tagTarget = regexp.MustCompile(`(?P<commit>[a-f0-9]+)\W?(refs/tags/(?P<tag>.*))?`)
