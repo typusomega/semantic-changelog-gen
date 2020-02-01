@@ -1,5 +1,6 @@
 
 tbd
+v0.4.1
 v0.4.0
     Commit: c248dcdd73cab924f0c9d945f209ea22b91958b3
     Description: Add `IncluceScopes` option for markdown formatting

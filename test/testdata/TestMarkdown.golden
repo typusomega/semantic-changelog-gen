@@ -1,6 +1,9 @@
 # Changelog
 
 ## tbd
+## v0.4.1
+### Fixes
+- Only add scope heading if not empty
 ## v0.4.0
 ### Breaking
 - Add `IncluceScopes` option for markdown formatting
