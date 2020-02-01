@@ -1,4 +1,4 @@
-// Package changelog contains the domain model of a Changelog, Release and SemanticCommits
+// Package changelog contains the domain model of a Changelog, Release and SemanticCommits.
 package changelog
 
 import "strings"

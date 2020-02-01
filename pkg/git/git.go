@@ -1,4 +1,4 @@
-// Package git contains the features used from Git
+// Package git contains the git interface.
 package git
 
 import (
