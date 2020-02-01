@@ -33,7 +33,7 @@ func NewTemplateFormatter(opts ...Option) (Formatter, error) {
 	}, nil
 }
 
-// Format renders the given changelog in Markdown given.
+// Format renders the given changelog with the TemplateFormatter's template.
 func (it *TemplateFormatter) Format(chlog *changelog.Changelog) (string, error) {
 	if chlog == nil {
 		return "", errorx.IllegalArgument.New("changelog must not be nil")
@@ -53,7 +53,7 @@ func (it *TemplateFormatter) Format(chlog *changelog.Changelog) (string, error) 
 	return bufferString.String(), nil
 }
 
-// A TemplateFormatter is a Formatter rendering markdown
+// A TemplateFormatter is a Formatter rendering changelogs with Go templates
 type TemplateFormatter struct {
 	template string
 }
