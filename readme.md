@@ -29,6 +29,16 @@ semantic-changelog-gen generate \
    --out /path/to/changelog.md
 ```
 
+If you are tired of the default markdown format used by the generator, feel free to use your own style:
+
+```bash
+semantic-changelog-gen generate \
+   --dir /path/to/repo \
+   --out /path/to/changelog.vnext \
+   --format custom \
+   --template /path/to/your/go.tpl
+```
+
 ## Contribution
 
 [Create a new issue](https://github.com/typusomega/semantic-changelog-gen/issues/new) if you want to:
