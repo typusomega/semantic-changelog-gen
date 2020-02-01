@@ -4,12 +4,10 @@ import (
 	fmt "fmt"
 	"io/ioutil"
 	"path/filepath"
-	"strings"
 
 	"github.com/jessevdk/go-flags"
 
 	bldr "github.com/typusomega/semantic-changelog-gen/pkg/builder"
-	"github.com/typusomega/semantic-changelog-gen/pkg/formatter"
 	"github.com/typusomega/semantic-changelog-gen/pkg/git"
 )
 
@@ -35,20 +33,7 @@ func (it *generateCommand) Execute(args []string) error {
 	}
 
 	println("formatting...")
-
-	formatterOpts := []formatter.Option{formatter.WithFormat(it.opts.OutputFormat)}
-	if strings.Trim(it.opts.OutputTemplateFile, " \n\t\r") != "" {
-		templatefileAbsolutePath, err := filepath.Abs(it.opts.OutputTemplateFile)
-		if err != nil {
-			return err
-		}
-		templateFileContent, err := ioutil.ReadFile(templatefileAbsolutePath)
-		if err != nil {
-			return err
-		}
-		formatterOpts = append(formatterOpts, formatter.WithTemplate(string(templateFileContent)))
-	}
-	fmter, err := formatter.NewTemplateFormatter(formatterOpts...)
+	fmter, err := it.opts.GetFormatter()
 	if err != nil {
 		return err
 	}

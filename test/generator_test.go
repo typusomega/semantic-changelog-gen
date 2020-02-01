@@ -18,7 +18,22 @@ func TestMarkdown(t *testing.T) {
 	changelog, err := builder.Build()
 	assert.NoError(t, err)
 
-	fmt, err := formatter.NewTemplateFormatter(formatter.WithFormat(formatter.MarkdownFormat))
+	fmt, err := formatter.NewMarkdownFormatter()
+	assert.NoError(t, err)
+
+	formattedChangelog, err := fmt.Format(changelog)
+	assert.NoError(t, err)
+
+	golden.Assert(t, []byte(formattedChangelog))
+}
+
+func TestMarkdownIncludingScopes(t *testing.T) {
+	builder := bldr.New(git.NewRepository("../", git.NewParser()))
+
+	changelog, err := builder.Build()
+	assert.NoError(t, err)
+
+	fmt, err := formatter.NewMarkdownFormatter(formatter.WithScopes())
 	assert.NoError(t, err)
 
 	formattedChangelog, err := fmt.Format(changelog)
@@ -36,7 +51,7 @@ func TestTemplate(t *testing.T) {
 	file, err := ioutil.ReadFile("testdata/test_template.gohtml")
 	assert.NoError(t, err)
 
-	fmt, err := formatter.NewTemplateFormatter(formatter.WithFormat(formatter.CustomFormat), formatter.WithTemplate(string(file)))
+	fmt, err := formatter.NewCustomTemplateFormatter(string(file))
 	assert.NoError(t, err)
 
 	formattedChangelog, err := fmt.Format(changelog)

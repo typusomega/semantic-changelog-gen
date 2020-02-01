@@ -3,6 +3,7 @@ package formatter
 
 import (
 	"bytes"
+	"strings"
 	"text/template"
 
 	"github.com/joomcode/errorx"
@@ -16,36 +17,32 @@ type Formatter interface {
 	Format(changelog *changelog.Changelog) (string, error)
 }
 
-// NewTemplateFormatter creates a new instance of a TemplateFormatter
-func NewTemplateFormatter(opts ...Option) (Formatter, error) {
-	options := &Options{Format: MarkdownFormat}
-	for _, opt := range opts {
-		opt(options)
+// NewCustomTemplateFormatter creates a new instance of a CustomTemplateFormatter
+func NewCustomTemplateFormatter(goTemplate string) (Formatter, error) {
+	if strings.Trim(goTemplate, " \t\r\n") == "" {
+		return nil, errorx.IllegalArgument.New("template must not be empty")
 	}
-
-	tpl, err := options.GetTemplate()
-	if err != nil {
-		return nil, err
-	}
-
-	return &TemplateFormatter{
-		template: tpl,
+	return &CustomTemplateFormatter{
+		template: goTemplate,
 	}, nil
 }
 
-// Format renders the given changelog with the TemplateFormatter's template.
-func (it *TemplateFormatter) Format(chlog *changelog.Changelog) (string, error) {
+func format(chlog *changelog.Changelog, templ string, options interface{}) (string, error) {
 	if chlog == nil {
 		return "", errorx.IllegalArgument.New("changelog must not be nil")
 	}
 
-	tpl, err := template.New("changelog").Parse(it.template)
+	tpl, err := template.New("changelog").Parse(templ)
 	if err != nil {
 		return "", errorx.IllegalArgument.Wrap(err, "invalid template")
 	}
 
 	bufferString := bytes.NewBufferString("")
-	err = tpl.Execute(bufferString, chlog)
+	err = tpl.Execute(bufferString,
+		struct {
+			Releases []*changelog.Release
+			Options  interface{}
+		}{Releases: chlog.Releases, Options: options})
 	if err != nil {
 		return "", errorx.IllegalArgument.Wrap(err, "could not execute template")
 	}
@@ -53,7 +50,12 @@ func (it *TemplateFormatter) Format(chlog *changelog.Changelog) (string, error) 
 	return bufferString.String(), nil
 }
 
-// A TemplateFormatter is a Formatter rendering changelogs with Go templates
-type TemplateFormatter struct {
+// Format renders the given changelog with the CustomTemplateFormatter's template.
+func (it *CustomTemplateFormatter) Format(chlog *changelog.Changelog) (string, error) {
+	return format(chlog, it.template, nil)
+}
+
+// A CustomTemplateFormatter is a Formatter rendering changelogs with Go templates
+type CustomTemplateFormatter struct {
 	template string
 }

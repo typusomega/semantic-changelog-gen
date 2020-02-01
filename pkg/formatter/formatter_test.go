@@ -9,63 +9,33 @@ import (
 	"github.com/typusomega/semantic-changelog-gen/pkg/changelog"
 )
 
-func TestNewTemplateFormatter(t *testing.T) {
-	type args struct {
-		opts []Option
-	}
+func TestNewCustomTemplateFormatter(t *testing.T) {
 	tests := []struct {
-		name  string
-		given args
-		then  func(t *testing.T, formatter Formatter, err error)
+		name     string
+		template string
+		then     func(t *testing.T, formatter Formatter, err error)
 	}{
 		{
-			name:  "no options",
-			given: args{opts: []Option{}},
-			then: func(t *testing.T, formatter Formatter, err error) {
-				assert.NoError(t, err)
-				assert.IsType(t, &TemplateFormatter{}, formatter)
-				assert.Equal(t, formatter.(*TemplateFormatter).template, markdownTemplate)
-			},
-		},
-		{
-			name:  "with markdown",
-			given: args{opts: []Option{WithFormat(MarkdownFormat)}},
-			then: func(t *testing.T, formatter Formatter, err error) {
-				assert.NoError(t, err)
-				assert.IsType(t, &TemplateFormatter{}, formatter)
-				assert.Equal(t, formatter.(*TemplateFormatter).template, markdownTemplate)
-			},
-		},
-		{
-			name:  "with markdown; given set",
-			given: args{opts: []Option{WithFormat(MarkdownFormat), WithTemplate("ignored given")}},
-			then: func(t *testing.T, formatter Formatter, err error) {
-				assert.NoError(t, err)
-				assert.IsType(t, &TemplateFormatter{}, formatter)
-				assert.Equal(t, formatter.(*TemplateFormatter).template, markdownTemplate)
-			},
-		},
-		{
-			name:  "with custom; no given set",
-			given: args{opts: []Option{WithFormat(CustomFormat)}},
+			name:     "with custom; no given template",
+			template: " ",
 			then: func(t *testing.T, formatter Formatter, err error) {
 				assert.Error(t, err)
 				assert.True(t, errorx.IsOfType(err, errorx.IllegalArgument))
 			},
 		},
 		{
-			name:  "with custom; given set",
-			given: args{opts: []Option{WithFormat(CustomFormat), WithTemplate("used given")}},
+			name:     "with custom; template set",
+			template: "template given",
 			then: func(t *testing.T, formatter Formatter, err error) {
 				assert.NoError(t, err)
-				assert.Equal(t, formatter.(*TemplateFormatter).template, "used given")
+				assert.Equal(t, formatter.(*CustomTemplateFormatter).template, "template given")
 			},
 		},
 	}
 	for _, tt := range tests {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := NewTemplateFormatter(tt.given.opts...)
+			got, err := NewCustomTemplateFormatter(tt.template)
 			tt.then(t, got, err)
 		})
 	}
@@ -117,7 +87,7 @@ func TestTemplateFormatter_Format(t *testing.T) {
 	for _, tt := range tests {
 		tt := tt
 		t.Run(tt.name, func(t *testing.T) {
-			it := &TemplateFormatter{
+			it := &CustomTemplateFormatter{
 				template: tt.template,
 			}
 			format, err := it.Format(tt.chlog)

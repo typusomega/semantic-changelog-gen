@@ -39,6 +39,12 @@ semantic-changelog-gen generate \
    --template /path/to/your/go.tpl
 ```
 
+If you are consistent with the scoping of your commits, you may also include them into your changelog:
+
+```bash
+semantic-changelog-gen generate --include-scopes
+```
+
 ## Contribution
 
 [Create a new issue](https://github.com/typusomega/semantic-changelog-gen/issues/new) if you want to:

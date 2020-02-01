@@ -1,7 +1,9 @@
 // Package changelog contains the domain model of a Changelog, Release and SemanticCommits.
 package changelog
 
-import "strings"
+import (
+	"strings"
+)
 
 // NewChangelog creates a new instance of a Changelog.
 func NewChangelog() *Changelog {
@@ -74,6 +76,15 @@ func (it *Release) GetRefactor() []*SemanticCommit {
 // GetStyle returns all style commits of this Release.
 func (it *Release) GetStyle() []*SemanticCommit {
 	return it.filterBy(Style)
+}
+
+// GetScoped returns all commits of the given commitType in this Release grouped by their scope.
+func (it *Release) GetScoped(commitType CommitType) map[string][]*SemanticCommit {
+	scoped := make(map[string][]*SemanticCommit)
+	for _, commit := range it.filterBy(commitType) {
+		scoped[commit.Scope] = append(scoped[commit.Scope], commit)
+	}
+	return scoped
 }
 
 func (it *Release) filterBy(commitType CommitType) []*SemanticCommit {
