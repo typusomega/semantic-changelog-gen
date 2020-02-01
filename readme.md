@@ -1,4 +1,4 @@
-[![GoDoc](https://godoc.org/github.com/typusomega/semantic-changelog-gen?status.svg)](http://godoc.org/github.com/typusomega/semantic-changelog-gen)
+[![GoDoc](https://godoc.org/github.com/typusomega/semantic-changelog-gen/pkg?status.svg)](http://godoc.org/github.com/typusomega/semantic-changelog-gen/pkg)
 [![Go Report](https://goreportcard.com/badge/github.com/typusomega/semantic-changelog-gen)](https://goreportcard.com/report/github.com/typusomega/semantic-changelog-gen)
 
 # Semantic Changelog Gen
