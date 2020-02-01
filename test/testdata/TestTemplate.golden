@@ -1,5 +1,6 @@
 
 tbd
+v0.2.0
     Commit: cbd3c2a1dab94892fc75b72d236b19b334b24ba2
     Description: Move main.go to repository root
     Body:     - this eases up installation via `go get`
