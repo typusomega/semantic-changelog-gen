@@ -1,7 +1,8 @@
 {{- range $release := .Releases }}
 {{ $release.Version }}
-{{- if .BreakingChanges }}
-  {{- range $commit := .BreakingChanges }}
+{{- $breaking := .GetBreaking }}
+{{- if $breaking }}
+  {{- range $commit := $breaking }}
     Commit: {{ $commit.Hash }}
     Description: {{ $commit.Description }}
     {{- if $commit.Body }}

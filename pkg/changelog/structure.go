@@ -18,9 +18,8 @@ type Changelog struct {
 // NewRelease creates a new instance of a Release as part of the Changelog.
 func (it *Changelog) NewRelease(version string) *Release {
 	release := &Release{
-		Version:  version,
-		Fixes:    make([]*SemanticCommit, 0),
-		Features: make([]*SemanticCommit, 0),
+		Version: version,
+		Commits: make([]*SemanticCommit, 0),
 	}
 	it.Releases = append(it.Releases, release)
 	return release
@@ -28,22 +27,63 @@ func (it *Changelog) NewRelease(version string) *Release {
 
 // A Release represents a version containing features, fixes and breaking changes.
 type Release struct {
-	Features        []*SemanticCommit
-	Fixes           []*SemanticCommit
-	BreakingChanges []*SemanticCommit
-	Version         string
+	Commits []*SemanticCommit
+	Version string
 }
 
 // AddEntry adds the given entry to this Release.
 func (it *Release) AddEntry(entry *SemanticCommit) {
-	switch entry.CommitType {
-	case Fix:
-		it.Fixes = append(it.Fixes, entry)
-	case Feature:
-		it.Features = append(it.Features, entry)
-	case Breaking:
-		it.BreakingChanges = append(it.BreakingChanges, entry)
+	it.Commits = append(it.Commits, entry)
+}
+
+// GetFixes returns all fixes of this Release.
+func (it *Release) GetFixes() []*SemanticCommit {
+	return it.filterBy(Fix)
+}
+
+// GetFeatures returns all features of this Release.
+func (it *Release) GetFeatures() []*SemanticCommit {
+	return it.filterBy(Feature)
+}
+
+// GetBreaking returns all breaking changes of this Release.
+func (it *Release) GetBreaking() []*SemanticCommit {
+	return it.filterBy(Breaking)
+}
+
+// GetChore returns all chore commits of this Release.
+func (it *Release) GetChore() []*SemanticCommit {
+	return it.filterBy(Chore)
+}
+
+// GetDocs returns all docs commits of this Release.
+func (it *Release) GetDocs() []*SemanticCommit {
+	return it.filterBy(Docs)
+}
+
+// GetTest returns all test commits of this Release.
+func (it *Release) GetTest() []*SemanticCommit {
+	return it.filterBy(Tests)
+}
+
+// GetRefactor returns all refactor commits of this Release.
+func (it *Release) GetRefactor() []*SemanticCommit {
+	return it.filterBy(Refactor)
+}
+
+// GetStyle returns all style commits of this Release.
+func (it *Release) GetStyle() []*SemanticCommit {
+	return it.filterBy(Style)
+}
+
+func (it *Release) filterBy(commitType CommitType) []*SemanticCommit {
+	filtered := make([]*SemanticCommit, 0)
+	for _, commit := range it.Commits {
+		if commit.CommitType == commitType {
+			filtered = append(filtered, commit)
+		}
 	}
+	return filtered
 }
 
 // A SemanticCommit represents a commit following the rules of conventional commit.

@@ -4,24 +4,27 @@ const markdownTemplate = `# Changelog
 {{- range $release := .Releases }}
 ## {{ $release.Version }}
 
-{{- if .Features }}
+{{- $features := .GetFeatures }}
+{{- if $features }}
 ### Features
 {{- end }}
-{{- range $commit := .Features }}
+{{- range $commit := .GetFeatures }}
 - {{ $commit.Description }}
 {{- end }}
 
-{{- if .Fixes }}
+{{- $fixes := .GetFixes }}
+{{- if $fixes }}
 ### Fixes
 {{- end }}
-{{- range $commit := .Fixes }}
+{{- range $commit := $fixes }}
 - {{ $commit.Description }}
 {{- end }}
 
-{{- if .BreakingChanges }}
+{{- $breaking := .GetBreaking }}
+{{- if $breaking }}
 ### Breaking
 {{- end }}
-{{- range $commit := .BreakingChanges }}
+{{- range $commit := $breaking }}
 - {{ $commit.Description }}
 {{- end }}
 

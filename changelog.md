@@ -1,5 +1,7 @@
 # Changelog
 ## tbd
+### Breaking
+- Store `SemanticCommit`s flat in Release
 ## v0.2.0
 ### Breaking
 - Move main.go to repository root
