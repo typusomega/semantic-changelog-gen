@@ -38,7 +38,11 @@ func (it *generateCommand) Execute(args []string) error {
 
 	formatterOpts := []formatter.Option{formatter.WithFormat(it.opts.OutputFormat)}
 	if strings.Trim(it.opts.OutputTemplateFile, " \n\t\r") != "" {
-		templateFileContent, err := ioutil.ReadFile(it.opts.OutputTemplateFile)
+		templatefileAbsolutePath, err := filepath.Abs(it.opts.OutputTemplateFile)
+		if err != nil {
+			return err
+		}
+		templateFileContent, err := ioutil.ReadFile(templatefileAbsolutePath)
 		if err != nil {
 			return err
 		}
